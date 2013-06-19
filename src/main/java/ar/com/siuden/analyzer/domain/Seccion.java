@@ -29,7 +29,7 @@ import javax.persistence.Table;
 @Table(name = "seccion")
 @NamedQueries({
     @NamedQuery(name = "Seccion.findAll", query = "SELECT s FROM Seccion s"),
-    @NamedQuery(name = "Seccion.findByIdseccion", query = "SELECT s FROM Seccion s WHERE s.idseccion = :idseccion"),
+    @NamedQuery(name = "Seccion.findByIdseccion", query = "SELECT s FROM Seccion s WHERE s.idSeccion = :idSeccion"),
     @NamedQuery(name = "Seccion.findByNombre", query = "SELECT s FROM Seccion s WHERE s.nombre = :nombre")})
 public class Seccion implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -37,30 +37,30 @@ public class Seccion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idseccion")
-    private Integer idseccion;
+    private Integer idSeccion;
     @Column(name = "nombre")
     private String nombre;
     
-    @OneToMany(mappedBy = "idseccion",targetEntity=Resultado.class)
+    @OneToMany(mappedBy = "seccion",targetEntity=Resultado.class)
     private List<Resultado> resultadoList;
     
-    @JoinColumn(name = "idpagina", referencedColumnName = "idpagina")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)    
-    private Pagina idpagina;
+    @JoinColumn(name = "idpagina")
+    @ManyToOne(optional = false,targetEntity=Pagina.class, fetch = FetchType.LAZY)    
+    private Pagina pagina;
 
     public Seccion() {
     }
 
-    public Seccion(Integer idseccion) {
-        this.idseccion = idseccion;
+    public Seccion(Integer idSeccion) {
+        this.idSeccion = idSeccion;
     }
 
-    public Integer getIdseccion() {
-        return idseccion;
+    public Integer getIdSeccion() {
+        return idSeccion;
     }
 
-    public void setIdseccion(Integer idseccion) {
-        this.idseccion = idseccion;
+    public void setIdSeccion(Integer idSeccion) {
+        this.idSeccion = idSeccion;
     }
 
     public String getNombre() {
@@ -79,18 +79,18 @@ public class Seccion implements Serializable {
         this.resultadoList = resultadoList;
     }
 
-    public Pagina getIdpagina() {
-        return idpagina;
+    public Pagina getPagina() {
+        return pagina;
     }
 
-    public void setIdpagina(Pagina idpagina) {
-        this.idpagina = idpagina;
+    public void setIdpagina(Pagina pagina) {
+        this.pagina = pagina;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idseccion != null ? idseccion.hashCode() : 0);
+        hash += (idSeccion != null ? idSeccion.hashCode() : 0);
         return hash;
     }
 
@@ -101,7 +101,7 @@ public class Seccion implements Serializable {
             return false;
         }
         Seccion other = (Seccion) object;
-        if ((this.idseccion == null && other.idseccion != null) || (this.idseccion != null && !this.idseccion.equals(other.idseccion))) {
+        if ((this.idSeccion == null && other.idSeccion != null) || (this.idSeccion != null && !this.idSeccion.equals(other.idSeccion))) {
             return false;
         }
         return true;
@@ -109,7 +109,7 @@ public class Seccion implements Serializable {
 
     @Override
     public String toString() {
-        return "ar.com.siuden.analyzer.domain.Seccion[ idseccion=" + idseccion + " ]";
+        return "ar.com.siuden.analyzer.domain.Seccion[ idSeccion=" + idSeccion + " ]";
     }
     
 }

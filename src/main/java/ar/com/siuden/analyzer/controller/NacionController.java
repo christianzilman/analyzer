@@ -91,11 +91,7 @@ public class NacionController extends Thread {
 
     public void iniciar() {
         this.setLife(true);
-        //final GsonBuilder builder = new GsonBuilder();
-        //final Gson gson = builder.create();
         gson = new Gson();
-
-        //gson = builder.create();
     }
 
     // Methods
@@ -298,7 +294,7 @@ public class NacionController extends Thread {
                             detalleResultado.setPalabra(palabra);
                             detalleResultado.setResultado(resultado);
                             detalleResultado.setCantidad(cantidadOcurrencia);
-                            resultado.getDetalleresultadoList().add(detalleResultado);
+                            resultado.getDetalleResultadoList().add(detalleResultado);
                         }
                     }
                 }

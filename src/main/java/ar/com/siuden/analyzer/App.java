@@ -37,61 +37,7 @@ public class App {
             ApplicationContext appContext = new ClassPathXmlApplicationContext("contexto/Spring.xml");
             Menu menu = (Menu) appContext.getBean("menu");
             menu.setVisible(true);
-            String datos = Funciones.postGetRequest("http://www.lanacion.com.ar/acumuladosAjax-p" + String.valueOf(1).trim() + "-7775-15",
-                    "GET", "");
-
-            Gson gson = new Gson();
-            datos = datos.replaceAll("[\n\r]", "");
-            datos = datos.trim();
-            datos = datos.replace("{\"notas\":[", "");
-            datos = datos.replace("]}", "");
-            String[] notas = datos.split("        ,        ");
-
-
-
-            //System.out.println(datos);
-            // String[] notas = datos.split(",");
-
-
-
-
-            int i = 0;
-            try {
-                i++;
-                // "clase": "nota conFoto conBajada conTopico ", 
-                // "id": "1591352",
-                // "url": "/1591352-allanan-la-casa-de-angeles-rawson", 
-                // "ocultarFecha": "0", 
-                // "fecha_actualizacion": "201306122113",
-                for (String info : notas) {
-                    info = info.replace("{\"nota\": {", "{\"nota\": [{");
-                    info = info.replace("}}", "}]}");
-                    info = info.replace("{\"nota\": [{ ", "");
-                    info = info.replace("}]}", "");
-                    info = info.trim();
-
-                    String[] test = info.split(",");
-
-                    System.out.println(test[2]);
-                    System.out.println(test[4]);
-                    
-
-                    //Nota noticias = gson.fromJson(info, Nota.class);
-                    System.out.println(info);
-                    break;
-                }
-
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-           // System.in.read();
-
-
-            //System.out.println(datos);
-            System.out.println("Antes del error");
-            //Noticia noticias = gson.fromJson(datos, Noticia.class);
-
+            
             System.out.println("Hello World!");
         } catch (Exception ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);

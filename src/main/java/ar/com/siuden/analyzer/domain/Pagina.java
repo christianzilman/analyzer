@@ -41,7 +41,7 @@ public class Pagina implements Serializable {
     private String link;
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpagina", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pagina", fetch = FetchType.LAZY)
     private List<Seccion> seccionList;
 
     public Pagina() {

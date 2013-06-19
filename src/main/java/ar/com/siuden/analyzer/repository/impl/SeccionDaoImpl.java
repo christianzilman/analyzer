@@ -47,7 +47,7 @@ public class SeccionDaoImpl implements SeccionDao {
    public Seccion get(int idSeccion) {
     Session session = sessionFactory.getCurrentSession();
     Criteria criteria = session.createCriteria(Seccion.class);
-    criteria.add(Restrictions.eq("idseccion", idSeccion));
+    criteria.add(Restrictions.eq("idSeccion", idSeccion));
     return (Seccion) criteria.uniqueResult();
    }
    @Override

@@ -35,11 +35,11 @@ import org.springframework.stereotype.Component;
 @Table(name = "resultado")
 @NamedQueries({
     @NamedQuery(name = "Resultado.findAll", query = "SELECT r FROM Resultado r"),
-    @NamedQuery(name = "Resultado.findByIdresultado", query = "SELECT r FROM Resultado r WHERE r.idresultado = :idresultado"),
-    @NamedQuery(name = "Resultado.findByLinknota", query = "SELECT r FROM Resultado r WHERE r.linknota = :linknota"),
-    @NamedQuery(name = "Resultado.findByTitulonota", query = "SELECT r FROM Resultado r WHERE r.titulonota = :titulonota"),
-    @NamedQuery(name = "Resultado.findByFechanota", query = "SELECT r FROM Resultado r WHERE r.fechanota = :fechanota"),
-    @NamedQuery(name = "Resultado.findByFechacalculo", query = "SELECT r FROM Resultado r WHERE r.fechacalculo = :fechacalculo")})
+    @NamedQuery(name = "Resultado.findByIdresultado", query = "SELECT r FROM Resultado r WHERE r.idResultado = :idResultado"),
+    @NamedQuery(name = "Resultado.findByLinknota", query = "SELECT r FROM Resultado r WHERE r.linkNota = :linknota"),
+    @NamedQuery(name = "Resultado.findByTitulonota", query = "SELECT r FROM Resultado r WHERE r.tituloNota = :titulonota"),
+    @NamedQuery(name = "Resultado.findByFechanota", query = "SELECT r FROM Resultado r WHERE r.fechaNota = :fechanota"),
+    @NamedQuery(name = "Resultado.findByFechacalculo", query = "SELECT r FROM Resultado r WHERE r.fechaCalculo = :fechacalculo")})
 public class Resultado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,57 +47,57 @@ public class Resultado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idresultado")
-    private Integer idresultado;
+    private Integer idResultado;
     @Column(name = "linknota")
-    private String linknota;
+    private String linkNota;
     @Column(name = "titulonota")
-    private String titulonota;
+    private String tituloNota;
     @Column(name = "subtitulonota")
     private String subTituloNota;
     @Column(name = "texto")
     private String texto;
     @Column(name = "fechanota")
     @Temporal(TemporalType.DATE)
-    private Date fechanota;
+    private Date fechaNota;
     @Column(name = "fechacalculo")
     @Temporal(TemporalType.DATE)
-    private Date fechacalculo;
-    @OneToMany(cascade= CascadeType.ALL,mappedBy = "idresultado", targetEntity = DetalleResultado.class, fetch = FetchType.LAZY)
-    private List<DetalleResultado> detalleresultadoList;
+    private Date fechaCalculo;
+    @OneToMany(cascade= CascadeType.ALL,mappedBy = "resultado", targetEntity = DetalleResultado.class, fetch = FetchType.LAZY)
+    private List<DetalleResultado> detalleResultadoList;
     @JoinColumn(name = "idseccion")
     @ManyToOne(targetEntity = Seccion.class)
-    private Seccion idseccion;
+    private Seccion seccion;
 
     public Resultado() {
-        detalleresultadoList = new ArrayList<DetalleResultado>();
+        detalleResultadoList = new ArrayList<DetalleResultado>();
     }
 
-    public Resultado(Integer idresultado) {
-        this.idresultado = idresultado;
+    public Resultado(Integer idResultado) {
+        this.idResultado = idResultado;
     }
 
     public Integer getIdResultado() {
-        return idresultado;
+        return idResultado;
     }
 
-    public void setIdResultado(Integer idresultado) {
-        this.idresultado = idresultado;
+    public void setIdResultado(Integer idResultado) {
+        this.idResultado = idResultado;
     }
 
     public String getLinkNota() {
-        return linknota;
+        return linkNota;
     }
 
-    public void setLinkNota(String linknota) {
-        this.linknota = linknota;
+    public void setLinkNota(String linkNota) {
+        this.linkNota = linkNota;
     }
 
     public String getTituloNota() {
-        return titulonota;
+        return tituloNota;
     }
 
-    public void setTituloNota(String titulonota) {
-        this.titulonota = titulonota;
+    public void setTituloNota(String tituloNota) {
+        this.tituloNota = tituloNota;
     }
 
     public String getTexto() {
@@ -109,35 +109,35 @@ public class Resultado implements Serializable {
     }
 
     public Date getFechaNota() {
-        return fechanota;
+        return fechaNota;
     }
 
-    public void setFechaNota(Date fechanota) {
-        this.fechanota = fechanota;
+    public void setFechaNota(Date fechaNota) {
+        this.fechaNota = fechaNota;
     }
 
     public Date getFechaCalculo() {
-        return fechacalculo;
+        return fechaCalculo;
     }
 
-    public void setFechaCalculo(Date fechacalculo) {
-        this.fechacalculo = fechacalculo;
+    public void setFechaCalculo(Date fechaCalculo) {
+        this.fechaCalculo = fechaCalculo;
     }
 
-    public List<DetalleResultado> getDetalleresultadoList() {
-        return detalleresultadoList;
+    public List<DetalleResultado> getDetalleResultadoList() {
+        return detalleResultadoList;
     }
 
-    public void setDetalleResultadoList(List<DetalleResultado> detalleresultadoList) {
-        this.detalleresultadoList = detalleresultadoList;
+    public void setDetalleResultadoList(List<DetalleResultado> detalleResultadoList) {
+        this.detalleResultadoList = detalleResultadoList;
     }
 
     public Seccion getSeccion() {
-        return idseccion;
+        return seccion;
     }
 
-    public void setSeccion(Seccion idseccion) {
-        this.idseccion = idseccion;
+    public void setSeccion(Seccion seccion) {
+        this.seccion = seccion;
     }
 
     /**
@@ -157,7 +157,7 @@ public class Resultado implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idresultado != null ? idresultado.hashCode() : 0);
+        hash += (idResultado != null ? idResultado.hashCode() : 0);
         return hash;
     }
 
@@ -168,7 +168,7 @@ public class Resultado implements Serializable {
             return false;
         }
         Resultado other = (Resultado) object;
-        if ((this.idresultado == null && other.idresultado != null) || (this.idresultado != null && !this.idresultado.equals(other.idresultado))) {
+        if ((this.idResultado == null && other.idResultado != null) || (this.idResultado != null && !this.idResultado.equals(other.idResultado))) {
             return false;
         }
         return true;
@@ -176,6 +176,6 @@ public class Resultado implements Serializable {
 
     @Override
     public String toString() {
-        return "ar.com.siuden.analyzer.domain.Resultado[ idresultado=" + idresultado + " ]";
+        return "ar.com.siuden.analyzer.domain.Resultado[ idResultado=" + idResultado + " ]";
     }
 }

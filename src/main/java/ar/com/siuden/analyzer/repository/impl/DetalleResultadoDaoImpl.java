@@ -61,7 +61,7 @@ public class DetalleResultadoDaoImpl implements DetalleResultadoDao {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(DetalleResultado.class);
         criteria.add(Restrictions.eq("idresultado.idresultado", idResultado));
-        criteria.add(Restrictions.eq("palabra.idpalabra", idPalabra));
+        criteria.add(Restrictions.eq("palabra.idPalabra", idPalabra));
         return (DetalleResultado) criteria.uniqueResult();
     }
 
@@ -69,8 +69,8 @@ public class DetalleResultadoDaoImpl implements DetalleResultadoDao {
     public boolean existResultadoPalabra(Integer idResultado, Integer idPalabra) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(DetalleResultado.class);
-        criteria.add(Restrictions.eq("idresultado.idresultado", idResultado));
-        criteria.add(Restrictions.eq("palabra.idpalabra", idPalabra));
+        criteria.add(Restrictions.eq("resultado.idresultado", idResultado));
+        criteria.add(Restrictions.eq("palabra.idPalabra", idPalabra));
         criteria.setProjection(Projections.rowCount());       
         Integer totalNumberOfElements = Integer.valueOf(criteria.uniqueResult().toString());        
         return (totalNumberOfElements >0);        

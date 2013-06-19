@@ -46,7 +46,7 @@ public class PalabraDaoImpl implements PalabraDao {
    public Palabra get(int idPalabra) {
     Session session = sessionFactory.getCurrentSession();
     Criteria criteria = session.createCriteria(Palabra.class);
-    criteria.add(Restrictions.eq("idpalabra", idPalabra));
+    criteria.add(Restrictions.eq("idPalabra", idPalabra));
     return (Palabra) criteria.uniqueResult();
    }
    @Override

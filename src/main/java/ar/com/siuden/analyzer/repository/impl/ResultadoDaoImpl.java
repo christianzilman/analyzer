@@ -63,7 +63,7 @@ public class ResultadoDaoImpl implements ResultadoDao {
      Criteria criteria = session.createCriteria(Resultado.class);
      criteria.setFirstResult(0);
      criteria.setMaxResults(30);
-     criteria.addOrder(Order.desc("idresultado"));        
+     criteria.addOrder(Order.desc("idResultado"));        
      return criteria.list();
    }
    
@@ -71,7 +71,7 @@ public class ResultadoDaoImpl implements ResultadoDao {
    public Resultado getByLinkNota(String linkNota) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Resultado.class);
-        criteria.add(Restrictions.like("linknota", "%" +linkNota+ "%"));
+        criteria.add(Restrictions.like("linkNota", "%" +linkNota+ "%"));
         //criteria.setFetchMode("idresultado.iddetalleresultado", FetchMode.JOIN);
         criteria.addOrder(Order.asc("idresultado"));        
         Resultado resultado = (Resultado) criteria.uniqueResult();
@@ -89,8 +89,8 @@ public class ResultadoDaoImpl implements ResultadoDao {
    public boolean existLinkNota(String linkNota) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Resultado.class);
-        criteria.add(Restrictions.like("linknota", "%" +linkNota+ "%"));
-        criteria.addOrder(Order.asc("idresultado"));        
+        criteria.add(Restrictions.like("linkNota", "%" +linkNota+ "%"));
+        criteria.addOrder(Order.asc("idResultado"));        
         criteria.setProjection(Projections.rowCount());       
         Integer totalNumberOfElements = Integer.valueOf(criteria.uniqueResult().toString());        
         return (totalNumberOfElements >0);
@@ -99,9 +99,9 @@ public class ResultadoDaoImpl implements ResultadoDao {
     public List<Resultado> getByDateSection(Date fechaDesde, Date fechaHasta, int idSeccion) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Resultado.class);
-        criteria.add(Restrictions.eq("idseccion.idseccion",idSeccion));
-        criteria.add(Restrictions.between("fechanota",fechaDesde,fechaHasta));
-        criteria.addOrder(Order.desc("idresultado"));        
+        criteria.add(Restrictions.eq("seccion.idSeccion",idSeccion));
+        criteria.add(Restrictions.between("fechaNota",fechaDesde,fechaHasta));
+        criteria.addOrder(Order.desc("idResultado"));        
         return criteria.list();
     }
 }

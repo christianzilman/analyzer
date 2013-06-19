@@ -14,6 +14,7 @@ import java.net.URL;
 import java.text.Normalizer;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -23,6 +24,8 @@ import javax.swing.JOptionPane;
  * @author juliozilman
  */
 public class Funciones {
+
+    final static long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000; //Milisegundos al día 
 
     /**
      *
@@ -35,8 +38,83 @@ public class Funciones {
         URL url;
         HttpURLConnection connection = null;
         try {
+
+            String proxy = "proxy.mydomain.com",
+                    port = "8080";
+            URL server = new URL(targetURL);
+            Properties systemProperties = System.getProperties();
+            systemProperties.setProperty("http.proxyHost", proxy);
+            systemProperties.setProperty("http.proxyPort", port);
+            connection = (HttpURLConnection) server.openConnection();
+
+            connection.connect();
             // Create connection
             url = new URL(targetURL);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(requestMethod);
+            connection.setRequestProperty("Content-Type",
+                    "application/x-www-form-urlencoded");
+
+            connection.setRequestProperty("Content-Length", ""
+                    + Integer.toString(postParams.getBytes().length));
+            connection.setRequestProperty("Content-Language", "en-US");
+
+            connection.setUseCaches(false);
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+
+            // Send request
+            DataOutputStream wr = new DataOutputStream(connection
+                    .getOutputStream());
+            wr.writeBytes(postParams);
+            wr.flush();
+            wr.close();
+
+            // Get Response
+            InputStream is = connection.getInputStream();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            String line;
+            StringBuffer response = new StringBuffer();
+            while ((line = rd.readLine()) != null) {
+                response.append(line);
+                response.append('\r');
+            }
+            rd.close();
+            return response.toString();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+    }
+    //http://www.tutorialspoint.com/javaexamples/net_poxy.htm
+    /**
+     * 
+     * @param targetURL
+     * @param requestMethod
+     * @param postParams
+     * @param proxy
+     * @param port
+     * @return 
+     */
+    public static String postGetRequest(String targetURL, String requestMethod, String postParams,String proxy,String port) {        
+        //String  proxy = "proxy.mydomain.com",
+        //port = "8080";                        
+        URL url;
+        HttpURLConnection connection = null;
+        try {            
+            url = new URL(targetURL);
+            Properties systemProperties = System.getProperties();
+            systemProperties.setProperty("http.proxyHost", proxy);
+            systemProperties.setProperty("http.proxyPort", port);
+            
+            connection.connect();
+            // Create connection            
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod(requestMethod);
             connection.setRequestProperty("Content-Type",
@@ -212,5 +290,15 @@ public class Funciones {
             }
         }
         return retorno;
+    }
+
+    /**
+     *
+     * @param fechaDesde
+     * @param fechaHasta
+     * @return long
+     */
+    public static long calcularCantidadDia(Date fechaDesde, Date fechaHasta) {
+        return ((fechaHasta.getTime() - fechaDesde.getTime()) / MILLSECS_PER_DAY);
     }
 }

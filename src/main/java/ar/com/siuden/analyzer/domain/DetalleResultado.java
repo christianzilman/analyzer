@@ -40,7 +40,7 @@ public class DetalleResultado implements Serializable {
     //@ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "idresultado")
     @ManyToOne(targetEntity=Resultado.class)
-    private Resultado idresultado;
+    private Resultado resultado;
 
     public DetalleResultado() {
     }
@@ -74,11 +74,11 @@ public class DetalleResultado implements Serializable {
     }
 
     public Resultado getResultado() {
-        return idresultado;
+        return resultado;
     }
 
-    public void setResultado(Resultado idresultado) {
-        this.idresultado = idresultado;
+    public void setResultado(Resultado resultado) {
+        this.resultado = resultado;
     }
 
     @Override

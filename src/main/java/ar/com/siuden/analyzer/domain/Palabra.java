@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @Table(name = "palabra")
 @NamedQueries({
     @NamedQuery(name = "Palabra.findAll", query = "SELECT p FROM Palabra p"),
-    @NamedQuery(name = "Palabra.findByIdpalabra", query = "SELECT p FROM Palabra p WHERE p.idpalabra = :idpalabra"),
+    @NamedQuery(name = "Palabra.findByIdpalabra", query = "SELECT p FROM Palabra p WHERE p.idPalabra = :idpalabra"),
     @NamedQuery(name = "Palabra.findByNombre", query = "SELECT p FROM Palabra p WHERE p.nombre = :nombre")})
 public class Palabra implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -35,25 +35,28 @@ public class Palabra implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idpalabra")
-    private Integer idpalabra;
+    private Integer idPalabra;
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "palabra", fetch = FetchType.LAZY)
-    private List<DetalleResultado> detalleresultadoList;
+    private List<DetalleResultado> detalleResultadoList;
+    
+    @OneToMany(cascade= CascadeType.ALL,mappedBy = "idSeccion", targetEntity = Seccion.class, fetch = FetchType.LAZY)
+    private List<Seccion> seccionList;
 
     public Palabra() {
     }
 
-    public Palabra(Integer idpalabra) {
-        this.idpalabra = idpalabra;
+    public Palabra(Integer idPalabra) {
+        this.idPalabra = idPalabra;
     }
 
     public Integer getIdPalabra() {
-        return idpalabra;
+        return idPalabra;
     }
 
-    public void setIdPalabra(Integer idpalabra) {
-        this.idpalabra = idpalabra;
+    public void setIdPalabra(Integer idPalabra) {
+        this.idPalabra = idPalabra;
     }
 
     public String getNombre() {
@@ -64,18 +67,32 @@ public class Palabra implements Serializable {
         this.nombre = nombre;
     }
 
-    public List<DetalleResultado> getDetalleresultadoList() {
-        return detalleresultadoList;
+    public List<DetalleResultado> getDetalleResultadoList() {
+        return detalleResultadoList;
     }
 
-    public void setDetalleresultadoList(List<DetalleResultado> detalleresultadoList) {
-        this.detalleresultadoList = detalleresultadoList;
+    public void setDetalleresultadoList(List<DetalleResultado> detalleResultadoList) {
+        this.detalleResultadoList = detalleResultadoList;
+    }
+
+    /**
+     * @return the seccionList
+     */
+    public List<Seccion> getSeccionList() {
+        return seccionList;
+    }
+
+    /**
+     * @param seccionList the seccionList to set
+     */
+    public void setSeccionList(List<Seccion> seccionList) {
+        this.seccionList = seccionList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idpalabra != null ? idpalabra.hashCode() : 0);
+        hash += (idPalabra != null ? idPalabra.hashCode() : 0);
         return hash;
     }
 
@@ -86,7 +103,7 @@ public class Palabra implements Serializable {
             return false;
         }
         Palabra other = (Palabra) object;
-        if ((this.idpalabra == null && other.idpalabra != null) || (this.idpalabra != null && !this.idpalabra.equals(other.idpalabra))) {
+        if ((this.idPalabra == null && other.idPalabra != null) || (this.idPalabra != null && !this.idPalabra.equals(other.idPalabra))) {
             return false;
         }
         return true;
@@ -94,7 +111,7 @@ public class Palabra implements Serializable {
 
     @Override
     public String toString() {
-        return "ar.com.siuden.analyzer.domain.Palabra[ idpalabra=" + idpalabra + " ]";
+        return "ar.com.siuden.analyzer.domain.Palabra[ idPalabra=" + idPalabra + " ]";
     }
     
 }

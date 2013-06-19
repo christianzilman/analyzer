@@ -4,6 +4,7 @@
  */
 package ar.com.siuden.analyzer.view;
 
+import ar.com.siuden.analyzer.controller.ClarinController;
 import ar.com.siuden.analyzer.controller.GacetaController;
 import ar.com.siuden.analyzer.controller.NacionController;
 import java.util.Calendar;
@@ -22,6 +23,8 @@ public class ContadorDePalabras extends javax.swing.JFrame {
     private GacetaController gacetaController;
     @Autowired
     private NacionController nacionController;
+    @Autowired
+    private ClarinController clarinController;
     @Autowired
     private PeriodoBusqueda periodoBusqueda;
     private List<String> link;
@@ -53,7 +56,7 @@ public class ContadorDePalabras extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnContadorPalabraGaceta = new javax.swing.JButton();
         btnContadorPalabraNacion = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnContadorPalabraClarin = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -75,10 +78,10 @@ public class ContadorDePalabras extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Contador Diario el Clarin");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnContadorPalabraClarin.setText("Contador Diario el Clarin");
+        btnContadorPalabraClarin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnContadorPalabraClarinActionPerformed(evt);
             }
         });
 
@@ -104,7 +107,7 @@ public class ContadorDePalabras extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnContadorPalabraGaceta, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                     .addComponent(btnContadorPalabraNacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnContadorPalabraClarin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -123,7 +126,7 @@ public class ContadorDePalabras extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(btnContadorPalabraNacion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnContadorPalabraClarin, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -186,9 +189,9 @@ public class ContadorDePalabras extends javax.swing.JFrame {
         barProgress.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnContadorPalabraClarinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContadorPalabraClarinActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnContadorPalabraClarinActionPerformed
 
     public void procesarPeriodo() {
         if (periodoBusqueda.getReturnStatus() == 1) {
@@ -208,6 +211,14 @@ public class ContadorDePalabras extends javax.swing.JFrame {
                 barProgress.hilo();
                 barProgress.setVisible(true);
             }
+
+            if (usarProceso.equals("CLARIN")) {
+                clarinController.setFechaDesde(periodoBusqueda.getFechaDesde());
+                clarinController.setFechaHasta(periodoBusqueda.getFechaHasta());
+                clarinController.calcularCantidadDia(periodoBusqueda.getFechaDesde(),periodoBusqueda.getFechaHasta());
+                barProgress.hilo();
+                barProgress.setVisible(true);
+            }
         }
     }
 
@@ -217,6 +228,10 @@ public class ContadorDePalabras extends javax.swing.JFrame {
 
     public NacionController getNacionController() {
         return nacionController;
+    }
+
+    public ClarinController getClarinController() {
+        return clarinController;
     }
 
     /**
@@ -254,9 +269,9 @@ public class ContadorDePalabras extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnContadorPalabraClarin;
     private javax.swing.JButton btnContadorPalabraGaceta;
     private javax.swing.JButton btnContadorPalabraNacion;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

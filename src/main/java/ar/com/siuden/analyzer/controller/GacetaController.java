@@ -304,7 +304,7 @@ public class GacetaController extends Thread {
                             detalleResultado.setPalabra(palabra);
                             detalleResultado.setResultado(resultado);
                             detalleResultado.setCantidad(cantidadOcurrencia);
-                            resultado.getDetalleresultadoList().add(detalleResultado);
+                            resultado.getDetalleResultadoList().add(detalleResultado);
                         }
                     }
 

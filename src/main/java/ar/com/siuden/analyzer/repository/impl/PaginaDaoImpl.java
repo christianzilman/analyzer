@@ -41,7 +41,7 @@ public class PaginaDaoImpl implements PaginaDao {
    public Pagina get(int idPagina) {
     Session session = sessionFactory.getCurrentSession();
     Criteria criteria = session.createCriteria(Pagina.class);
-    criteria.add(Restrictions.eq("idpagina", idPagina));
+    criteria.add(Restrictions.eq("idPagina", idPagina));
     return (Pagina) criteria.uniqueResult();
    }
    
